@@ -1,0 +1,15 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\YY6VGC_HSZF_2024251.Application\YY6VGC_HSZF_2024251.Application.csproj" />
+    <ProjectReference Include="..\YY6VGC_HSZF_2024251.Model\YY6VGC_HSZF_2024251.Model.csproj" />
+    <ProjectReference Include="..\YY6VGC_HSZF_2024251.Persistence.MsSql\YY6VGC_HSZF_2024251.Persistence.MsSql.csproj" />
+  </ItemGroup>
+
+</Project>

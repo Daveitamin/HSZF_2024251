@@ -1,0 +1,25 @@
+{
+  "races": [
+    {
+      "location": "Hungarian GP",
+      "date": "2023-07-23",
+      "podium": [ "Max", "Verstappen", "Lewis", "Hamilton", "Sergio", "Perez" ],
+      "drivers": [
+        {
+          "name": "Max Verstappen",
+          "team": "Red Bull Racing",
+          "points": 25
+        },
+        {
+          "name": "Lewis Hamilton",
+          "team": "Mercedes",
+          "points": 18
+        }
+      ]
+
+
+
+
+    }
+  ]
+}
