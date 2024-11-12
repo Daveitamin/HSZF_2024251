@@ -12,11 +12,12 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
         //location, team, podium, drivers (name, team, points)
         void CreateRace(GrandPrixes raceName, string[] names);
         void DeleteRace(int raceId);
-        void UpdateRace();
+        void UpdateRace(int id, string[] newNames);
         void CreateNewDriver(Drivers driver);
         void DeleteDriver(int id);
         void UpdateCurrentDriverTeam(string driver, string newTeam);
         void UpdateCurrentDriverPoints(string driver, int newPoint);
+        void AddDriverPoints(string[] namesToAddPoints);
 
     }
     public class RaceResultUpdate : IRaceResultUpdate
@@ -70,18 +71,61 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             driverToUpdate.points += newPoint;
             context.SaveChanges();
         }
-        public void DeleteDriverPoints(string name)
+        public void DeleteDriverPoints(string[] namesToDeletePoints)
         {
-            var driverPointUpdate = context.Drivers.FirstOrDefault(x => x.name == name);
-            if (true)
+            int i = 0;
+            foreach (var item in namesToDeletePoints)
             {
-
+                var driverToDeletePoints = context.Drivers.FirstOrDefault(x => x.name == item);
+                if (i == 0)
+                {
+                    driverToDeletePoints.points -= 20;
+                    i++;
+                }
+                else if (i == 1)
+                {
+                    driverToDeletePoints.points -= 15;
+                    i++;
+                }
+                else
+                {
+                    driverToDeletePoints.points -= 10;
+                    i++;
+                }
+            }
+        }
+        public void AddDriverPoints(string[] namesToAddPoints)
+        {
+            int i = 0;
+            foreach (var item in namesToAddPoints)
+            {
+                var driverToDeletePoints = context.Drivers.FirstOrDefault(x => x.name == item);
+                if (i == 0)
+                {
+                    driverToDeletePoints.points += 20;
+                    i++;
+                }
+                else if (i == 1)
+                {
+                    driverToDeletePoints.points += 15;
+                    i++;
+                }
+                else
+                {
+                    driverToDeletePoints.points += 10;
+                    i++;
+                }
             }
         }
 
         public void UpdateRace(int id, string[] newNames)
         {
-            
+            var findRaceId = context.GrandPrixes.FirstOrDefault(x => x.Id == id);
+            string[] oldNames = findRaceId.Podium;
+            DeleteDriverPoints(oldNames);
+            findRaceId.Podium = newNames;
+            AddDriverPoints(newNames);
+
         }
     }
 }
