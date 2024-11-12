@@ -8,6 +8,7 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
     public class AppDbContext : DbContext
     {
         public DbSet<GrandPrixes> GrandPrixes { get; set; }
+        public DbSet<Drivers> Drivers { get; set; }
         public AppDbContext() { this.Database.EnsureCreated(); SeedDataBase(); }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,7 +24,7 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             var root = JsonConvert.DeserializeObject<Root>(json);
             if (!GrandPrixes.Any())
             {
-                foreach (var gp in root.races)
+                foreach (var gp in root.races) //json fájlban lévő összesítő nevek pl "races"
                 {
                     var gpEntity = new GrandPrixes 
                     {

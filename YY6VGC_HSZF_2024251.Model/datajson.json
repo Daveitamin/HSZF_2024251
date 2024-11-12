@@ -3,7 +3,7 @@
     {
       "location": "Hungarian GP",
       "date": "2023-07-23",
-      "podium": [ "Max", "Verstappen", "Lewis", "Hamilton", "Sergio", "Perez" ],
+      "podium": [ "Max Verstappen", "Lewis Hamilton", "Sergio Perez" ],
       "drivers": [
         {
           "name": "Max Verstappen",
