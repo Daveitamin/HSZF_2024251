@@ -14,12 +14,55 @@
           "name": "Lewis Hamilton",
           "team": "Mercedes",
           "points": 18
+        },
+        {
+          "name": "Charles Leclerc",
+          "team": "Ferrari",
+          "points": 25
+        },
+        {
+          "name": "Sergio Perez",
+          "team": "Red Bull Racing",
+          "points": 25
+        },
+        {
+          "name": "Lando Norris",
+          "team": "Mclaren",
+          "points": 2
         }
       ]
-
-
-
-
+    },
+    {
+      "location": "Monaco GP",
+      "date": "2023-10-23",
+      "podium": [ "Charles Leclerc", "Lando Norris", "Max Verstappen" ],
+      "drivers": [
+        {
+          "name": "Max Verstappen",
+          "team": "Red Bull Racing",
+          "points": 10
+        },
+        {
+          "name": "Lewis Hamilton",
+          "team": "Mercedes",
+          "points": 5
+        },
+        {
+          "name": "Charles Leclerc",
+          "team": "Ferrari",
+          "points": 25
+        },
+        {
+          "name": "Sergio Perez",
+          "team": "Red Bull Racing",
+          "points": 21
+        },
+        {
+          "name": "Fernando Alonso",
+          "team": "Aston Martin Aramco",
+          "points": 7
+        }
+      ]
     }
   ]
 }

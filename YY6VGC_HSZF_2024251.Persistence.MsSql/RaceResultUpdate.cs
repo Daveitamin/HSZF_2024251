@@ -10,7 +10,7 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
     public interface IRaceResultUpdate
     {
         //location, team, podium, drivers (name, team, points)
-        void CreateRace(GrandPrixes raceName, string[] names);
+        void CreateRace(GrandPrixes raceName);
         void DeleteRace(int raceId);
         void UpdateRace(int id, string[] newNames);
         void CreateNewDriver(Drivers driver);
@@ -43,12 +43,21 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
 
         }
 
-        public void CreateRace(GrandPrixes raceName, string[] names)
+        public void CreateRace(GrandPrixes raceName)
         {
-            context.Add(raceName);
-            UpdateCurrentDriverPoints(names[0], 20);
-            UpdateCurrentDriverPoints(names[1], 15);
-            UpdateCurrentDriverPoints(names[2], 10);
+            var existingDataBase = context.GrandPrixes.FirstOrDefault(x => x.Location == raceName.Location);
+
+            if (existingDataBase != null)
+            {
+                Console.WriteLine($"Ilyen verseny már létezik az adatbázisban ezért nem tudod hozzáadni.");
+            }
+            else
+            {
+                context.Add(raceName);
+            }
+
+
+
             context.SaveChanges();
         }
 
@@ -127,5 +136,25 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             AddDriverPoints(newNames);
 
         }
+
+        public void CheckOrCreatePilot(string pilotName, string[] teamname)
+        {
+            var existingPilot = context.Drivers.FirstOrDefault(x => x.name == pilotName);
+
+            if (existingPilot != null)
+            {
+                Console.WriteLine($"A {pilotName} nevű pilóta már létezik az adatbázisban.");
+            }
+            else
+            {
+                var newPilot = new Drivers { name = pilotName, team = "Unknown", points = 0};
+                context.Drivers.Add(newPilot);
+                context.SaveChanges();
+                Console.WriteLine($"A {newPilot} pilóta létrehozva az adatbázisban");
+            }
+        }
+
+
+
     }
 }

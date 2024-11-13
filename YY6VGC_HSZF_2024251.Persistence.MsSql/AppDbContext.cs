@@ -9,6 +9,9 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
     {
         public DbSet<GrandPrixes> GrandPrixes { get; set; }
         public DbSet<Drivers> Drivers { get; set; }
+
+        //
+        public DbSet<Drivers> EditableDrivers { get; set; }
         public AppDbContext() { this.Database.EnsureCreated(); SeedDataBase(); }
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,12 +29,13 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             {
                 foreach (var gp in root.races) //json fájlban lévő összesítő nevek pl "races"
                 {
-                    var gpEntity = new GrandPrixes 
+                    var gpEntity = new GrandPrixes
                     {
                         Location = gp.Location, Date = gp.Date, Podium = gp.Podium, Drivers = gp.Drivers
                     };
+                    Console.WriteLine($"Location: {gp.Location}, Date: {gp.Date}, Drivers Count: {gp.Drivers.Count}");
 
-                    GrandPrixes.AddRange(gpEntity);
+                    GrandPrixes.Add(gpEntity);//addrange lecserélve
                 }
 
                 SaveChanges();

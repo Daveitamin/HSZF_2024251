@@ -10,7 +10,7 @@ namespace YY6VGC_HSZF_2024251.Application
 {
     public interface IDatabaseManager
     {
-        void CreateRace(GrandPrixes raceName, string[] names);
+        void CreateRace(GrandPrixes raceName);
         void DeleteRace(int raceId);
         void UpdateRace(int id, string[] newNames);
         void CreateNewDriver(Drivers driver);
@@ -39,9 +39,9 @@ namespace YY6VGC_HSZF_2024251.Application
             throw new NotImplementedException();
         }
 
-        public void CreateRace(GrandPrixes raceName, string[] names)
+        public void CreateRace(GrandPrixes raceName)
         {
-            raceResultUpdate.CreateRace(raceName, names);
+            raceResultUpdate.CreateRace(raceName);
         }
 
         public void DeleteDriver(int id)

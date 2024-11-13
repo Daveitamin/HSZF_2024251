@@ -7,6 +7,7 @@ using YY6VGC_HSZF_2024251.Persistence.MsSql;
 
 namespace YY6VGC_HSZF_2024251.Application
 {
+
     public interface IDirectoryManager
     {
         public void CreateRaceFolders();
