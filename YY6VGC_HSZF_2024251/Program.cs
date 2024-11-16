@@ -25,6 +25,32 @@ namespace YY6VGC_HSZF_2024251
                 //xml
                 services.AddSingleton<IXMLDataProvider, XMLDataProvider>();
                 services.AddSingleton<IXMLMethod, XMLMethod>();
+                //txt
+                //services.AddSingleton<ISeasonReportGenerator, SeasonReportGenerator>();
+
+                //txt2.0
+                services.AddSingleton<ISeasonReportGenerator, SeasonReportGenerator>();
+                services.AddSingleton<ITxtWriter, TxtWriter>();
+
+                //piloták listázása csökkenő pontszám szerint 
+                services.AddSingleton<IDriverLister, DriverLister>();
+                services.AddSingleton<IDriverDisplay, DriverDisplay>();
+
+                //Versenydobogósok megjelenítése
+                services.AddSingleton<IRacePodiumLister, RacePodiumLister>();
+                services.AddSingleton<IPodiumDisplay, PodiumDisplay>();
+
+                //A futamokon résztvevő versenyzők szűrése nemzetiség szerint
+                services.AddSingleton<IDriverByNationalityLister, DriverByNationalityLister>();
+                services.AddSingleton<IDriverNationalityDisplay, DriverNationalityDisplay>();
+
+                //legjobb 5 versenyző legalább 2 versenyen
+                services.AddSingleton<IBestFiveRacersDataProvider, BestFiveRacersDataProvider>();
+                services.AddSingleton<IBestFiveRacersDisplay, BestFiveRacersDisplay>();
+
+                //Egy adott csapat versenyzői összesen hány különböző versenyen értek el dobogós helyezést
+                services.AddSingleton<ITeamDriverAnalyzerDataProvider, TeamDriverAnalyzerDataProvider>();
+                services.AddSingleton<IDriverPodiumCountByTeamDisplay, DriverPodiumCountByTeamDisplay>();
 
 
             }).Build();
@@ -37,6 +63,32 @@ namespace YY6VGC_HSZF_2024251
             IXMLMethod xmlll = host.Services.GetRequiredService<IXMLMethod>();
             xmlll.SaveAllRacesToXml();
 
+            //txt
+            //var seasonReportGenerator = host.Services.GetRequiredService<ISeasonReportGenerator>();
+            //seasonReportGenerator.GenerateSeasonSummary();
+
+            //txt2.0
+            var summaryProvider = host.Services.GetRequiredService<ISeasonReportGenerator>();
+            var txtWriter = host.Services.GetRequiredService<ITxtWriter>();
+
+            //pilota megjelenitése pont csökkenő
+            var driverDiplay = host.Services.GetRequiredService<IDriverDisplay>();
+
+            //versenydobogós megjelenítés
+            var podiumDisplay = host.Services.GetRequiredService<IPodiumDisplay>();
+
+            //A futamokon résztvevő versenyzők szűrése nemzetiség szerint
+
+            var driverNationalityDisplayer = host.Services.GetRequiredService<IDriverNationalityDisplay>();
+
+            //Legjobb 5 versenyző, akik legalább 2 különböző versenyen nyertek
+            var fiveBest = host.Services.GetRequiredService<IBestFiveRacersDisplay>();
+
+            //Adott csapat legjobb versenyzői podium helyezés
+            var analyzer = host.Services.GetRequiredService<ITeamDriverAnalyzerDataProvider>();
+            var outputHandler = host.Services.GetRequiredService<IDriverPodiumCountByTeamDisplay>();
+
+
             //var context = new AppDbContext(); ///nem kell de ha igen különben alatta apdv helyett context
             var winnerNotifier = new CustomEventHandler(apdv);
             //feliratkozás
@@ -48,6 +100,7 @@ namespace YY6VGC_HSZF_2024251
             //winnerNotifier.CheckAndNotifyWinner();
 
             //txtiras
+
 
 
             IDatabaseManager databaseManager = host.Services.GetService<IDatabaseManager>();
@@ -63,17 +116,17 @@ namespace YY6VGC_HSZF_2024251
             while (!exit)
             {
                 int runningConfig = 0;
+                Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("Formula 1 Database Center Ohio");
                 Console.WriteLine("A folytatáshoz nyomj ENTER-t!");
                 Console.ReadKey();
                 Console.WriteLine("MENU:");
                 Console.WriteLine("1. Új verseny létrehozása");
-                Console.WriteLine("2. Verseny módosítása");
-                Console.WriteLine("3. Verseny törlése");
-                Console.WriteLine("--------------------");
-                Console.WriteLine("4. Új pilóta hozzáadása");
-                Console.WriteLine("5. Meglévő pilóta csapatának módosítása");
-                Console.WriteLine("6. Meglévő pilóta pontjainak módosítása");
+                Console.WriteLine("2. Versenyriport generálása a főmappába");
+                Console.WriteLine("3. Versenyzők listázása pontszám szerint csökkenő sorrendben");
+                Console.WriteLine("4. Egy adott verseny dobogósainak megjelenítése");
+                Console.WriteLine("5. A futamokon résztvevő versenyzők szűrése nemzetiség szerint");
+                Console.WriteLine("6. Legjobb 5 versenyző, akik legalább 2 különböző versenyen nyertek");
                 Console.WriteLine("7. Meglévő pilóta törlése");
                 Console.WriteLine("8. EXIT");
                 Console.WriteLine("A választott menüpont: ");
@@ -106,7 +159,34 @@ namespace YY6VGC_HSZF_2024251
 
                         break;
                     case 2:
-                        exit = true;
+                        Dictionary<string, int> teamsScores = summaryProvider.GetTeamScores();
+                        Dictionary<string, int> driverScores = summaryProvider.GetDriverScores();
+                        string filePath = Path.Combine("Formula1_2023", "SeasonSummary.txt");
+                        txtWriter.WriteSeasonSummary(filePath, teamsScores, driverScores);
+                        break;
+                    case 3:
+                        driverDiplay.DisplayDriversByPoints();
+                        break;
+                    case 4:
+                        Console.WriteLine("Add meg a verseny helyszínét: ");
+                        string requestLocation = Console.ReadLine();
+                        podiumDisplay.ShodPodium(requestLocation);
+                        break;
+                    case 5:
+                        Console.WriteLine("Add meg egy verseny helyszínét: ");
+                        string userRequestedLocation = Console.ReadLine();
+                        Console.WriteLine($"Add meg mely nemzetiségű pilótákat szeretnéd listázni a {userRequestedLocation} versenyen: ");
+                        string userRequestedNationality = Console.ReadLine();
+                        driverNationalityDisplayer.DisplayDriversByNationality(userRequestedLocation, userRequestedNationality);
+                        break;
+                    case 6:
+                        fiveBest.DisplayBestFiveRacers();
+                        break;
+                    case 7:
+                        Console.WriteLine("Add meg, hogy melyik csapat versenyzőire vagy kiváncsi");
+                        string userRequestedTeamName = Console.ReadLine();
+                        var podiumCnts = analyzer.GetPodiumCountByTeam(userRequestedTeamName);
+                        outputHandler.DisplayPodiumCounts(podiumCnts);
                         break;
 
 

@@ -38,8 +38,8 @@ namespace YY6VGC_HSZF_2024251.Model
         [XmlArray("Drivers")]
         [XmlArrayItem("Driver")]
 
-        [XmlIgnore]//// xml seralizer error --> fixed
-        public ICollection<Drivers> Drivers { get; set;} = new List<Drivers>();
+        //[XmlIgnore]//// xml seralizer error --> fixed
+        public List<Drivers> Drivers { get; set;} = new List<Drivers>();
 
 
 
@@ -67,5 +67,12 @@ namespace YY6VGC_HSZF_2024251.Model
         [AllowNull]
         [JsonProperty("points")]
         public int points { get; set; }
+        [AllowNull]
+        [JsonProperty("nationality")]
+
+        public string nationality { get; set; }
+
+        public int GrandPrixesId { get; set; }
+        public GrandPrixes GrandPrixes { get; set; }
     }
 }

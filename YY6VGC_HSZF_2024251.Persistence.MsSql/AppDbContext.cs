@@ -29,6 +29,7 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             {
                 foreach (var gp in root.races) //json fájlban lévő összesítő nevek pl "races"
                 {
+                    
                     var gpEntity = new GrandPrixes
                     {
                         Location = gp.Location, Date = gp.Date, Podium = gp.Podium, Drivers = gp.Drivers

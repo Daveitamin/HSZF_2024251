@@ -8,27 +8,32 @@
         {
           "name": "Max Verstappen",
           "team": "Red Bull Racing",
-          "points": 25
+          "points": 25,
+          "nationality": "Netherland"
         },
         {
           "name": "Lewis Hamilton",
           "team": "Mercedes",
-          "points": 18
+          "points": 18,
+          "nationality": "English"
         },
         {
           "name": "Charles Leclerc",
           "team": "Ferrari",
-          "points": 25
+          "points": 25,
+          "nationality": "Monaco"
         },
         {
           "name": "Sergio Perez",
           "team": "Red Bull Racing",
-          "points": 25
+          "points": 25,
+          "nationality": "Mexican"
         },
         {
           "name": "Lando Norris",
           "team": "Mclaren",
-          "points": 2
+          "points": 2,
+          "nationality": "Mexican"
         }
       ]
     },
@@ -40,27 +45,32 @@
         {
           "name": "Max Verstappen",
           "team": "Red Bull Racing",
-          "points": 10
+          "points": 10,
+          "nationality": "Netherland"
         },
         {
           "name": "Lewis Hamilton",
           "team": "Mercedes",
-          "points": 5
+          "points": 5,
+          "nationality": "English"
         },
         {
           "name": "Charles Leclerc",
           "team": "Ferrari",
-          "points": 25
+          "points": 25,
+          "nationality": "Monaco"
         },
         {
           "name": "Sergio Perez",
           "team": "Red Bull Racing",
-          "points": 21
+          "points": 21,
+          "nationality": "Mexican"
         },
         {
           "name": "Fernando Alonso",
           "team": "Aston Martin Aramco",
-          "points": 7
+          "points": 7,
+          "nationality": "English"
         }
       ]
     }

@@ -22,7 +22,7 @@ namespace YY6VGC_HSZF_2024251.Application
         {
             if (IsEventProvider())
             {
-                WinnerFound($"{racerName} elérte a 300 pontot!!! Grauláluk");
+                WinnerFound($"{racerName} elérte a 300 pontot!!! Graulálunk");
             }
         }
 
