@@ -72,7 +72,7 @@ namespace YY6VGC_HSZF_2024251.Model
 
         public string nationality { get; set; }
 
-        public int GrandPrixesId { get; set; }
+        public int? GrandPrixesId { get; set; }
         public GrandPrixes GrandPrixes { get; set; }
     }
 }

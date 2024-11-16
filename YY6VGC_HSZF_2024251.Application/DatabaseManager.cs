@@ -12,12 +12,12 @@ namespace YY6VGC_HSZF_2024251.Application
     {
         void CreateRace(GrandPrixes raceName);
         void DeleteRace(int raceId);
+
+        void CreateDriver(Drivers driver);
         void UpdateRace(int id, string[] newNames);
-        void CreateNewDriver(Drivers driver);
         void DeleteDriver(int id);
         void UpdateCurrentDriverTeam(string driver, string newTeam);
         void UpdateCurrentDriverPoints(string driver, int newPoint);
-        void AddDriverPoints(string[] namesToAddPoints);
     }
 
     public class DatabaseManager : IDatabaseManager
@@ -29,14 +29,9 @@ namespace YY6VGC_HSZF_2024251.Application
             this.raceResultUpdate = raceResultUpdate;
         }
 
-        public void AddDriverPoints(string[] namesToAddPoints)
+        public void CreateDriver(Drivers driver)
         {
-            throw new NotImplementedException();
-        }
-
-        public void CreateNewDriver(Drivers driver)
-        {
-            throw new NotImplementedException();
+            raceResultUpdate.AddNewDriver(driver);
         }
 
         public void CreateRace(GrandPrixes raceName)
@@ -51,7 +46,7 @@ namespace YY6VGC_HSZF_2024251.Application
 
         public void DeleteRace(int raceId)
         {
-            throw new NotImplementedException();
+            raceResultUpdate.DeleteRace(raceId);
         }
 
         public void UpdateCurrentDriverPoints(string driver, int newPoint)
@@ -66,7 +61,7 @@ namespace YY6VGC_HSZF_2024251.Application
 
         public void UpdateRace(int id, string[] newNames)
         {
-            throw new NotImplementedException();
+            raceResultUpdate.UpdateRacePodium(id, newNames);
         }
     }
 }

@@ -128,7 +128,8 @@ namespace YY6VGC_HSZF_2024251
                 Console.WriteLine("5. A futamokon résztvevő versenyzők szűrése nemzetiség szerint");
                 Console.WriteLine("6. Legjobb 5 versenyző, akik legalább 2 különböző versenyen nyertek");
                 Console.WriteLine("7. Meglévő pilóta törlése");
-                Console.WriteLine("8. EXIT");
+                Console.WriteLine("8. Verseny törlése");
+                Console.WriteLine("9. Verseny módosítása");
                 Console.WriteLine("A választott menüpont: ");
                 runningConfig = int.Parse(Console.ReadLine());
                 
@@ -137,6 +138,7 @@ namespace YY6VGC_HSZF_2024251
                     case 0:
                         
                         break;
+                        ///Új verseny létrehozása majd feltöltése az adatbázisba
                     case 1:
                         var newRace = new GrandPrixes();
                         Console.WriteLine("Add meg a verseny helyszínét: ");
@@ -159,6 +161,8 @@ namespace YY6VGC_HSZF_2024251
 
                         break;
                     case 2:
+
+                    case 30:
                         Dictionary<string, int> teamsScores = summaryProvider.GetTeamScores();
                         Dictionary<string, int> driverScores = summaryProvider.GetDriverScores();
                         string filePath = Path.Combine("Formula1_2023", "SeasonSummary.txt");
@@ -187,6 +191,47 @@ namespace YY6VGC_HSZF_2024251
                         string userRequestedTeamName = Console.ReadLine();
                         var podiumCnts = analyzer.GetPodiumCountByTeam(userRequestedTeamName);
                         outputHandler.DisplayPodiumCounts(podiumCnts);
+                        break;
+                    case 8:
+                        Console.WriteLine("Add meg a verseny ID-ját amit törölni szeretnél: ");
+                        int asd = int.Parse(Console.ReadLine());
+                        databaseManager.DeleteRace(asd);
+                        break;
+                    case 9:
+                        Console.WriteLine("Add meg a módosítani kívánt verseny id-ját: ");
+                        int userRequestedRaceId = int.Parse(Console.ReadLine());
+                        string[] userModifyNames = new string[3];
+                        Console.WriteLine("1. helyezett neve:");
+                        userModifyNames[0] = Console.ReadLine();
+                        Console.WriteLine("2. helyezett neve:");
+                        userModifyNames[1] = Console.ReadLine();
+                        Console.WriteLine("3. helyezett neve:");
+                        userModifyNames[2] = Console.ReadLine();
+                        databaseManager.UpdateRace(userRequestedRaceId, userModifyNames);
+                        break;
+
+                    case 50:
+                        Console.WriteLine("Add meg a versenyző nevét: ");
+                        string addDriverName = Console.ReadLine();
+                        Console.WriteLine("Add meg a csapat nevét: ");
+                        string addDriverTeam = Console.ReadLine();
+                        Console.WriteLine("Add meg a versenyző nemzetiségét: ");
+                        string addDriverNationality = Console.ReadLine();
+
+                        int? grandPrixesId = null;
+
+                        Drivers newDriver = new Drivers
+                        {
+                            name = addDriverName,
+                            team = addDriverTeam,
+                            nationality = addDriverNationality,
+                            GrandPrixesId = grandPrixesId
+
+                        };
+
+                        databaseManager.CreateDriver(newDriver);
+
+
                         break;
 
 

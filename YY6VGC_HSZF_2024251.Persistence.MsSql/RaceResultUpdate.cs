@@ -12,13 +12,12 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
         //location, team, podium, drivers (name, team, points)
         void CreateRace(GrandPrixes raceName);
         void DeleteRace(int raceId);
-        void UpdateRace(int id, string[] newNames);
-        void CreateNewDriver(Drivers driver);
+        void UpdateRacePodium(int raceId, string[] newNames);
+        void AddNewDriver(Drivers driver);
         void DeleteDriver(int id);
         void UpdateCurrentDriverTeam(string driver, string newTeam);
         void UpdateCurrentDriverPoints(string driver, int newPoint);
         void AddDriverPoints(string[] namesToAddPoints);
-
     }
     public class RaceResultUpdate : IRaceResultUpdate
     {
@@ -29,9 +28,9 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             this.context = context;
         }
 
-        public void CreateNewDriver(Drivers driver)
+        public void AddNewDriver(Drivers driver)
         {
-            context.Add(driver);
+            context.Drivers.Add(driver);
             context.SaveChanges();
         }
 
@@ -127,14 +126,23 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
             }
         }
 
-        public void UpdateRace(int id, string[] newNames)
+        public void UpdateRacePodium(int raceId, string[] newNames)
         {
-            var findRaceId = context.GrandPrixes.FirstOrDefault(x => x.Id == id);
+            var findRaceId = context.GrandPrixes.FirstOrDefault(x => x.Id == raceId);
             string[] oldNames = findRaceId.Podium;
-            DeleteDriverPoints(oldNames);
+            //DeleteDriverPoints(oldNames);
             findRaceId.Podium = newNames;
-            AddDriverPoints(newNames);
+            //AddDriverPoints(newNames);
+            if (findRaceId == null)
+            {
+                Console.WriteLine("Nem található ilyen verseny az adatbázisban.");
+                return;
+            }
 
+            findRaceId.Podium = newNames;
+            context.SaveChanges();
+            Console.WriteLine($"{findRaceId.Location} helyszínű verseny podiumja frissítve lett.");
+            
         }
 
         public void CheckOrCreatePilot(string pilotName, string[] teamname)
@@ -153,8 +161,5 @@ namespace YY6VGC_HSZF_2024251.Persistence.MsSql
                 Console.WriteLine($"A {newPilot} pilóta létrehozva az adatbázisban");
             }
         }
-
-
-
     }
 }
