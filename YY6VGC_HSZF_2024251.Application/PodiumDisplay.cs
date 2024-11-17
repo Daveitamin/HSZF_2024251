@@ -24,7 +24,7 @@ namespace YY6VGC_HSZF_2024251.Application
         {
             var podium = podiumLister.GetPodiumbyRaceLocation(location);
 
-            Console.WriteLine($"Dobogósok a(z) {location} versenyen: ");
+            Console.WriteLine($"\nDobogósok a(z) {location} versenyen: ");
             foreach (var driver in podium)
             {
                 Console.WriteLine(driver);

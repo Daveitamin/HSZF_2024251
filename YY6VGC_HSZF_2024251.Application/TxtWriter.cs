@@ -30,7 +30,7 @@ namespace YY6VGC_HSZF_2024251.Application
                     writer.WriteLine($"{driver.Key}: {driver.Value} points");
                 }
             }
-            Console.WriteLine($"Season summary saved to {filePath}");
+            Console.WriteLine($"Kimutatás mentve a következő helyre: {filePath}");
         }
     }
 }

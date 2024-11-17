@@ -22,10 +22,10 @@ namespace YY6VGC_HSZF_2024251.Application
 
         public void DisplayPodiumCounts(List<(string DriverName, int PodiumCount)> podiumCounts)
         {
-            Console.WriteLine("Versenyzők dobogós helyezései csökkenő sorrendben: ");
+            Console.WriteLine("\nVersenyzők dobogós helyezései csökkenő sorrendben: ");
             foreach (var item in podiumCounts)
             {
-                Console.WriteLine($"Versenyző {item.DriverName}, Dobogós helyezések: {item.PodiumCount}");
+                Console.WriteLine($"\nVersenyző: {item.DriverName} | Dobogós helyezések: {item.PodiumCount}");
             }
         }
     }

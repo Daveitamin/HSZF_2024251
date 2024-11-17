@@ -24,7 +24,7 @@ namespace YY6VGC_HSZF_2024251.Application
         public void DisplayDriversByPoints()
         {
             var drivers = driverLister.GetDriversOrderedByPoints();
-            Console.WriteLine("Versenyzők listázása pontszám szerint csökkenő sorrendben: ");
+            //Console.WriteLine("Versenyzők listázása pontszám szerint csökkenő sorrendben: ");
             foreach (var driver in drivers)
             {
                 Console.WriteLine($"{driver.name} - {driver.team} - {driver.points} pont");

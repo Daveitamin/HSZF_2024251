@@ -13,6 +13,8 @@ namespace YY6VGC_HSZF_2024251.Application
         void CreateRace(GrandPrixes raceName);
         void DeleteRace(int raceId);
 
+        void AddPoints(string[] podiumNamesAdd);
+
         void CreateDriver(Drivers driver);
         void UpdateRace(int id, string[] newNames);
         void DeleteDriver(int id);
@@ -29,6 +31,11 @@ namespace YY6VGC_HSZF_2024251.Application
             this.raceResultUpdate = raceResultUpdate;
         }
 
+        public void AddPoints(string[] podiumNamesAdd)
+        {
+            raceResultUpdate.PointsAddDriver(podiumNamesAdd);
+        }
+
         public void CreateDriver(Drivers driver)
         {
             raceResultUpdate.AddNewDriver(driver);
@@ -41,7 +48,7 @@ namespace YY6VGC_HSZF_2024251.Application
 
         public void DeleteDriver(int id)
         {
-            throw new NotImplementedException();
+            raceResultUpdate.DeleteDriver(id);
         }
 
         public void DeleteRace(int raceId)
