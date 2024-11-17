@@ -10,7 +10,6 @@ using System.Threading;
 using Microsoft.EntityFrameworkCore.Storage;
 using Microsoft.Identity.Client;
 
-//Moving Characters
 static class TextUtilities
 {
     public static void Type(string p_input, int p_delay)
@@ -44,8 +43,6 @@ namespace YY6VGC_HSZF_2024251
                 //xml
                 services.AddSingleton<IXMLDataProvider, XMLDataProvider>();
                 services.AddSingleton<IXMLMethod, XMLMethod>();
-                //txt
-                //services.AddSingleton<ISeasonReportGenerator, SeasonReportGenerator>();
 
                 //txt2.0
                 services.AddSingleton<ISeasonReportGenerator, SeasonReportGenerator>();
@@ -110,25 +107,17 @@ namespace YY6VGC_HSZF_2024251
 
             //var context = new AppDbContext(); ///nem kell de ha igen különben alatta apdv helyett context
 
-            //winnerNotifier.CheckAndNotifyWinner();
-
             var dataProvider = new EventHandlerDataProvider(apdv);
             var eventNotifier = new EventNotifier();
             var eventDisplay = new EventDisplay();
 
             eventNotifier.DriverBecameChampion += eventDisplay.OnDriverBecameChampion;
 
-            //txtiras
-
-
-
             IDatabaseManager databaseManager = host.Services.GetService<IDatabaseManager>();
-
-
 
             ////////////GUI////////////////
             ///betöltés
-            DisplayLoadingAnimation("Kurva eget");
+            DisplayLoadingAnimation();
 
             
             
@@ -155,34 +144,34 @@ namespace YY6VGC_HSZF_2024251
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.WriteLine("\n\nMENU:");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("1. Új verseny létrehozása");
+                Console.WriteLine("1) Új verseny létrehozása");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("2. Új pilóta létrehozása");
+                Console.WriteLine("2) Új pilóta létrehozása");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("3. Meglévő pilóta törlése");
+                Console.WriteLine("3) Meglévő pilóta törlése");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("4. Meglévő verseny módosítása");
+                Console.WriteLine("4) Meglévő verseny módosítása");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("5. Meglévő verseny törlése ID alapján");
+                Console.WriteLine("5) Meglévő verseny törlése ID alapján");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("6. Verseny adatainak exportálása XML formátumban");
+                Console.WriteLine("6) Verseny adatainak exportálása XML formátumban");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("7. Összesített csapat és versenyzői pontszámok exportálása txt formátumban");
+                Console.WriteLine("7) Összesített csapat és versenyzői pontszámok exportálása txt formátumban");
                 Console.ForegroundColor = ConsoleColor.Green;
                 //Console.WriteLine("################################################################");
                 Console.WriteLine("Adatbázis lekérdezések: ");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("8. Versenyzők listázása pontszám szerint csökkenő sorrendben");
+                Console.WriteLine("8) Versenyzők listázása pontszám szerint csökkenő sorrendben");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("9. Egy adott verseny dobogósainak megjelenítése");
+                Console.WriteLine("9) Egy adott verseny dobogósainak megjelenítése");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("10. A futamokon résztvevő versenyzők szűrése nemzetiség szerint");
+                Console.WriteLine("10) A futamokon résztvevő versenyzők szűrése nemzetiség szerint");
                 Console.ForegroundColor = ConsoleColor.Red;
-                Console.WriteLine("11. A legjobb 5 versenyző akik legalább 2 különböző versenyen nyertek");
+                Console.WriteLine("11) A legjobb 5 versenyző akik legalább 2 különböző versenyen nyertek");
                 Console.ForegroundColor = ConsoleColor.White;
-                Console.WriteLine("12. Egy adott csapat versenyzőinek dobogós helyezései");
+                Console.WriteLine("12) Egy adott csapat versenyzőinek dobogós helyezései");
                 Console.ForegroundColor = ConsoleColor.Magenta;
-                Console.WriteLine("13. EXIT");
+                Console.WriteLine("13) EXIT");
                 Console.ForegroundColor = ConsoleColor.Green;
                 Console.Write("A választott menüpont: ");
                 runningConfig = int.Parse(Console.ReadLine());
@@ -280,7 +269,7 @@ namespace YY6VGC_HSZF_2024251
                         Console.Write("\n\nAdd meg a verseny ID-ját amit törölni szeretnél: ");
                         int versenyId = int.Parse(Console.ReadLine());
                         databaseManager.DeleteRace(versenyId);
-                        Thread.Sleep(2300);
+                        Thread.Sleep(3300);
                         break;
                         //Versenyek adatai XML formátumú mentése------------------------------------------------------------------
                     case 6:
@@ -417,63 +406,9 @@ namespace YY6VGC_HSZF_2024251
                 }
             }
 
-
-
-            
-
-
             ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            ///MANUAL TESTING PLACE:
 
-            //Új pilóta felvétele
-            //var driver = new Drivers();
-            //Console.WriteLine("Add meg egy sofőr nevét:");
-            //driver.name = Console.ReadLine();
-            //Console.WriteLine($"Add meg {driver.name} csapatát: ");
-            //driver.team = Console.ReadLine();
-            //Console.WriteLine($"Add meg, hogy {driver.name}-nek hány pontja van az idei szezonban: ");
-            //driver.points = int.Parse(Console.ReadLine());
-
-
-            //Meglévő pilóta törlése
-
-            //Meglévő pilóta csapata vagy pontja változtatása
-            //string driverEditName;
-            //Console.WriteLine("Add meg a pilóta nevét(HELYESEN!), akinek a csapatát vagy pontját szeretnéd változtatni.");
-            //driverEditName = Console.ReadLine();
-            //Console.WriteLine($"Add meg {driverEditName} új csapatát: ");
-            //string driverEditNewTeam = Console.ReadLine();
-            //Console.WriteLine($"Add meg {driverEditName} szerzett pontjait: ");
-            //int driverEditPointIncrease = int.Parse(Console.ReadLine());
-
-
-            //Új verseny felvétele
-            //var newRace = new GrandPrixes();
-            //Console.WriteLine("Add meg a rögzíteni kívánt verseny helyszínét: ");
-            //newRace.Location = Console.ReadLine();
-            //Console.WriteLine("Add meg a verseny dátumát(Ilyen formában: 2023-07-23): ");
-            //newRace.Date = DateTime.Parse(Console.ReadLine());
-            //string[] podiumNames = new string[3];
-            //Console.WriteLine("Add meg az 1. helyezett nevét: ");
-            //podiumNames[0] = Console.ReadLine();
-            //Console.WriteLine("Add meg az 2. helyezett nevét: ");
-            //podiumNames[1] = Console.ReadLine();
-            //Console.WriteLine("Add meg az 3. helyezett nevét: ");
-            //podiumNames[2] = Console.ReadLine();
-
-            //Meglévő verseny törlése
-            //Console.WriteLine("Add meg a törölni kívánt verseny id-ját: ");
-            //int deleteRaceId = int.Parse(Console.ReadLine());
-
-            ////Meglévő verseny eredményének módosítása
-            //Console.WriteLine("Add meg a módosítani kívánt verseny id-ját");
-            //int modifyRaceId = int.Parse(Console.ReadLine());
-            //string[] modifyRacePodiumNames = new string[3];
-            //Console.WriteLine("Kérlek add meg az új 1. helyezettet:");
-            //modifyRacePodiumNames[0] = Console.ReadLine();
-            //Console.WriteLine("Kérlek add meg az új 2. helyezettet:");
-            //modifyRacePodiumNames[1] = Console.ReadLine();
-            //Console.WriteLine("Kérlek add meg az új 3. helyezettet:");
-            //modifyRacePodiumNames[2] = Console.ReadLine();
 
 
             ///linecounter
@@ -481,19 +416,25 @@ namespace YY6VGC_HSZF_2024251
 
             
         }
-        public static void DisplayLoadingAnimation(string message)
+        public static void DisplayLoadingAnimation()
         {
             Console.Clear();
-            Console.ForegroundColor = ConsoleColor.Yellow;
-            Console.WriteLine(message);
-            Console.Write("Betöltés: ");
+            Console.ForegroundColor = ConsoleColor.Red;
+            //Console.WriteLine(message);
+            Console.Write("Loading: ");
             for (int i = 0; i <= 10; i++)
             {
                 Console.Write("█");
-                Thread.Sleep(300); // Speed of loading
+                Thread.Sleep(200); // Speed of loading
             }
             Console.WriteLine();
-            Console.WriteLine("Kész is vagyunk!");
+            Console.WriteLine("Loading complete");
+            Console.Write("\nApp Starting: ");
+            for (int i = 0; i <= 10; i++)
+            {
+                Console.Write("█");
+                Thread.Sleep(50); // Speed of loading
+            }
             Console.ResetColor();
             Thread.Sleep(1000);
             Console.Clear();
