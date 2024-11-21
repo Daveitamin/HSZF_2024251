@@ -79,10 +79,6 @@ namespace YY6VGC_HSZF_2024251
             IXMLMethod xmlll = host.Services.GetRequiredService<IXMLMethod>();
             
 
-            //txt
-            //var seasonReportGenerator = host.Services.GetRequiredService<ISeasonReportGenerator>();
-            //seasonReportGenerator.GenerateSeasonSummary();
-
             //txt2.0
             var summaryProvider = host.Services.GetRequiredService<ISeasonReportGenerator>();
             var txtWriter = host.Services.GetRequiredService<ITxtWriter>();
@@ -185,7 +181,7 @@ namespace YY6VGC_HSZF_2024251
                         var newRace = new GrandPrixes();
                         Console.Write("\n\nAdd meg a verseny helyszínét: ");
                         newRace.Location = Console.ReadLine();
-                        TextUtilities.Type("\nAdd meg a verseny dátumát(Ilyen formában: 2023-07-23): ",10);
+                        TextUtilities.Type("\nAdd meg a verseny dátumát(Ilyen formában: 2023-07-23): ",10);            
                         newRace.Date = DateTime.Parse(Console.ReadLine());
                         Console.WriteLine("\nAdd meg a pódiumon helyt foglaló versenyzőket: ");
 

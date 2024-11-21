@@ -25,7 +25,7 @@ namespace YY6VGC_HSZF_2024251.Application
             var bestFiveDrivers = bestFiveDataProvider.GetFiveBestWinnerRacers();
             //Console.WriteLine("A legjobb 5 versenyző akik legalább 2 versenyen győzedelmeskedtek: ");
             int i = 1;
-            foreach (var driver in bestFiveDrivers)
+            foreach (var driver in bestFiveDrivers.Take(5))
             {
                 Console.WriteLine($"{i}: {driver.name}");
                 i++;
